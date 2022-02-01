@@ -1,5 +1,7 @@
 # !!! UNDER DEVELOPMENT !!!
 
+Export ClickUp timers from workspace in CSV format.
+
 ### Requirements
 
 - NodeJs 16.13.1
@@ -15,8 +17,8 @@
 
 ```
 yarn install
-yarn export // testing
-yarn export --from=01/01/2022 --to=31/01/2022 --filename=jan_export.csv --workspace=xxxxxxxxx
+yarn export:time //export time entries from the first day of current month to today
+yarn export:time --from=01/01/2022 --to=31/01/2022 --filename=jan_export.csv --workspace=xxxxxxxxx
 ```
 
 ### References

@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "export": "node ./src/index.js"
+    "export:time": "node ./src/index.js"
   },
   "keywords": [],
   "author": "",
