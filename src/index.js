@@ -6,6 +6,7 @@ const {parse, startOfMonth, formatISO} = require('date-fns');
 const ObjectsToCsv = require('objects-to-csv');
 const ClickUp = require('./api/clickup');
 const cliHelper = require('./utils/cli');
+const moment = require('moment');
 
 dotenv.config();
 
@@ -41,7 +42,6 @@ const client = new ClickUp(apiToken);
 
 async function main() {
     const timers = await client.getTimers(workspaceId, fromDate.getTime(), toDate.getTime());
-    const spaces = await client.getSpaces(workspaceId);
 
     const formattedTimers = formatTimers(timers);
 
@@ -52,8 +52,10 @@ async function main() {
         return timers.map(timer => {
             return {
                 timerId: timer.id,
-                taskSpace: getSpaceById(timer.task_location.space_id).name,
-                taskId: timer.task.name,
+                spaceName: timer.task_location.space_name,
+                folderName: timer.task_location.folder_name,
+                listName: timer.task_location.list_name,
+                taskId: timer.task.id,
                 taskUrl: timer.task_url,
                 taskName: timer.task.name,
                 taskStatus: timer.task.status.status,
@@ -61,7 +63,8 @@ async function main() {
                 start: formatDate(timer.start),
                 end: formatDate(timer.end),
                 at: formatDate(timer.at),
-                duration: getMinutesFrom(timer.duration),
+                duration_in_hours: moment.duration(timer.duration).asHours(),
+                duration_in_millis: timer.duration,
                 description: timer.description,
                 tags: timer.tags,
             };

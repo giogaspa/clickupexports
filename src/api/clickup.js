@@ -17,7 +17,7 @@ class ClickUp {
     }
 
     async getTimers(workspaceId, fromDate, toDate) {
-        const res = await this.client.get(`${CLICKUP_URL}/team/${workspaceId}/time_entries?start_date=${fromDate}&end_date=${toDate}`);
+        const res = await this.client.get(`${CLICKUP_URL}/team/${workspaceId}/time_entries?start_date=${fromDate}&end_date=${toDate}&include_location_names=true`);
         return res.data.data;
     }
 
